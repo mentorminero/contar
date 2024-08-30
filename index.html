@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Variable que se Pobla Automáticamente</title>
+</head>
+<body>
+
+  <h1>Contador: <span id="contador">0</span></h1>
+
+  <script>
+    let contador = 0;
+    const elementoContador = document.getElementById("contador");
+
+    // Función para incrementar el contador
+    function incrementarContador() {
+      contador++;
+      elementoContador.textContent = contador;
+    }
+
+    // Actualiza el contador cada segundo (1000 milisegundos)
+    setInterval(incrementarContador, 1000); 
+  </script>
+
+</body>
+</html>
