@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Acumulador con Horario (Cada 5 Segundos)</title>
+  <title>Acumulador con Horario (Persistente)</title>
 </head>
 <body>
 
@@ -9,26 +9,38 @@
 
   <script>
     // Configuración
-    const horaInicio = 8;    // Hora de inicio (formato 24 horas)
-    const horaFin = 17;      // Hora de fin (formato 24 horas)
-    const intervaloSegundos = 5; // Intervalo en segundos
-    const incremento = 5;     // Valor a sumar en cada intervalo
+    const horaInicio = 8;    
+    const horaFin = 17;      
+    const intervaloSegundos = 5; 
+    const incremento = 5;     
 
-    let valor = 0;
+    // Intentar cargar el valor del almacenamiento local
+    let valor = localStorage.getItem('valorAcumulado');
+
+    // Si no hay valor almacenado, inicializar en 0
+    if (valor === null) {
+      valor = 0;
+    } else {
+      // Convertir de string a número
+      valor = parseInt(valor);
+    }
+
     const elementoValor = document.getElementById("valor");
+    elementoValor.textContent = valor; // Mostrar valor inicial
 
     function actualizarValor() {
       const ahora = new Date();
       const horaActual = ahora.getHours();
 
-      // Verificar si estamos dentro del horario programado
       if (horaActual >= horaInicio && horaActual < horaFin) {
         valor += incremento;
         elementoValor.textContent = valor;
+
+        // Guardar el valor en el almacenamiento local
+        localStorage.setItem('valorAcumulado', valor);
       } 
     }
 
-    // Actualizar el valor cada 5 segundos (5000 milisegundos)
     setInterval(actualizarValor, intervaloSegundos * 1000); 
   </script>
 
