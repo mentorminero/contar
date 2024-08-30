@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Variable que se Pobla Automáticamente</title>
+  <title>Acumulador con Horario (Cada 5 Segundos)</title>
 </head>
 <body>
 
-  <h1>Contador: <span id="contador">0</span></h1>
+  <h1>Valor: <span id="valor">0</span></h1>
 
   <script>
-    let contador = 0;
-    const elementoContador = document.getElementById("contador");
+    // Configuración
+    const horaInicio = 8;    // Hora de inicio (formato 24 horas)
+    const horaFin = 17;      // Hora de fin (formato 24 horas)
+    const intervaloSegundos = 5; // Intervalo en segundos
+    const incremento = 5;     // Valor a sumar en cada intervalo
 
-    // Función para incrementar el contador
-    function incrementarContador() {
-      contador++;
-      elementoContador.textContent = contador;
+    let valor = 0;
+    const elementoValor = document.getElementById("valor");
+
+    function actualizarValor() {
+      const ahora = new Date();
+      const horaActual = ahora.getHours();
+
+      // Verificar si estamos dentro del horario programado
+      if (horaActual >= horaInicio && horaActual < horaFin) {
+        valor += incremento;
+        elementoValor.textContent = valor;
+      } 
     }
 
-    // Actualiza el contador cada segundo (1000 milisegundos)
-    setInterval(incrementarContador, 1000); 
+    // Actualizar el valor cada 5 segundos (5000 milisegundos)
+    setInterval(actualizarValor, intervaloSegundos * 1000); 
   </script>
 
 </body>
